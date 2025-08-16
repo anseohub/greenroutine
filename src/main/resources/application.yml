@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/greenroutine?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.time_zone: Asia/Seoul
+
+logging:
+  level:
+    org.hibernate.SQL: info
+
+#
+cors:
+  allowed-origins: "http://localhost:5173,https://*.github.io"
