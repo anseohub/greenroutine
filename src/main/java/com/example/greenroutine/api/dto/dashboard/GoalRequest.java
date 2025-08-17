@@ -1,4 +1,4 @@
-package com.greenroutine.api.dto.dashboard;
+package com.example.greenroutine.api.dto.dashboard;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
-package com.greenroutine.repository;
+package com.example.greenroutine.repository;
 
-import com.greenroutine.domain.MonthlyCharge;
+import com.example.greenroutine.domain.MonthlyCharge;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;

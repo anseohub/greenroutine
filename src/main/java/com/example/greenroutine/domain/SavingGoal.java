@@ -1,4 +1,4 @@
-package com.greenroutine.domain;
+package com.example.greenroutine.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

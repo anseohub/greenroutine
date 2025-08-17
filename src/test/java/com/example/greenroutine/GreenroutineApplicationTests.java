@@ -1,4 +1,4 @@
-package com.greenroutine;
+package com.example.greenroutine;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

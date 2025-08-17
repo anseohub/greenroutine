@@ -1,12 +1,12 @@
-package com.greenroutine.service;
+package com.example.greenroutine.service;
 
-import com.greenroutine.api.dto.dashboard.DonutResponse;
-import com.greenroutine.api.dto.dashboard.GoalResponse;
-import com.greenroutine.api.dto.dashboard.MonthlyBarResponse;
-import com.greenroutine.domain.MonthlyCharge;
-import com.greenroutine.domain.SavingGoal;
-import com.greenroutine.repository.MonthlyChargeRepository;
-import com.greenroutine.repository.SavingGoalRepository;
+import com.example.greenroutine.api.dto.dashboard.DonutResponse;
+import com.example.greenroutine.api.dto.dashboard.GoalResponse;
+import com.example.greenroutine.api.dto.dashboard.MonthlyBarResponse;
+import com.example.greenroutine.domain.MonthlyCharge;
+import com.example.greenroutine.domain.SavingGoal;
+import com.example.greenroutine.repository.MonthlyChargeRepository;
+import com.example.greenroutine.repository.SavingGoalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,7 @@
 // src/main/java/com/greenroutine/repository/SavingGoalRepository.java
-package com.greenroutine.repository;
+package com.example.greenroutine.repository;
 
-import com.greenroutine.domain.SavingGoal;
+import com.example.greenroutine.domain.SavingGoal;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;

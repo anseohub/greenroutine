@@ -1,11 +1,10 @@
-package com.greenroutine.api.controller;
+package com.example.greenroutine.api.controller;
 
-import com.greenroutine.api.dto.dashboard.DonutResponse;
-import com.greenroutine.api.dto.dashboard.GoalRequest;
-import com.greenroutine.api.dto.dashboard.GoalResponse;
-import com.greenroutine.api.dto.dashboard.MonthlyBarResponse;
-import com.greenroutine.api.dto.dashboard.DonutResponse;
-import com.greenroutine.service.DashboardService;
+import com.example.greenroutine.api.dto.dashboard.DonutResponse;
+import com.example.greenroutine.api.dto.dashboard.GoalRequest;
+import com.example.greenroutine.api.dto.dashboard.GoalResponse;
+import com.example.greenroutine.api.dto.dashboard.MonthlyBarResponse;
+import com.example.greenroutine.service.DashboardService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
