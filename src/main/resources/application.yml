@@ -15,11 +15,15 @@ spring:
       hibernate:
         format_sql: true
         jdbc.time_zone: Asia/Seoul
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
 
 logging:
   level:
     org.hibernate.SQL: info
 
-#
 cors:
   allowed-origins: "http://localhost:5173,https://*.github.io"

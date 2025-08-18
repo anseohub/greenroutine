@@ -24,6 +24,9 @@ public class DashboardService {
     private final MonthlyChargeRepository monthlyChargeRepository;
     private final SavingGoalRepository savingGoalRepository;
 
+    // 전기요금 수정(원/kWh)
+    private static final int ELEC_KWH = 106;
+
     // 도넛 데이터
     public DonutResponse getDonut(Long userId, String periodYm) {
         List<MonthlyCharge> dailies =
@@ -31,7 +34,7 @@ public class DashboardService {
 
         int elecSum = 0, gasSum = 0;
         for (MonthlyCharge d : dailies) {
-            elecSum += safe(d.getElec());
+            elecSum += safe(d.getElec())* ELEC_KWH;
             gasSum  += safe(d.getGas());
         }
 
@@ -39,7 +42,7 @@ public class DashboardService {
             Optional<MonthlyCharge> monthly = monthlyChargeRepository.findByUser_IdAndYmAndDayIsNull(userId, periodYm);
             if (monthly.isPresent()) {
                 MonthlyCharge m = monthly.get();
-                elecSum = safe(m.getElec());
+                elecSum = safe(m.getElec()) * ELEC_KWH;;
                 gasSum  = safe(m.getGas());
             }
         }
@@ -52,7 +55,7 @@ public class DashboardService {
                 .periodYm(periodYm)
                 .elec(elecSum)
                 .gas(gasSum)
-                .total(elecSum + gasSum)
+                .total(total)
                 .elecRatio(elecRatio)
                 .gasRatio(gasRatio)
                 .build();
@@ -66,13 +69,13 @@ public class DashboardService {
         List<MonthlyCharge> dailies =
                 monthlyChargeRepository.findAllByUser_IdAndYmAndDayIsNotNullOrderByDay(userId, periodYm);
 
-        int[] elecDay = new int[daysInMonth + 1]; // 1..daysInMonth
+        int[] elecDay = new int[daysInMonth + 1];
         int[] gasDay  = new int[daysInMonth + 1];
 
         for (MonthlyCharge d : dailies) {
             Integer day = d.getDay();
             if (day != null && day >= 1 && day <= daysInMonth) {
-                elecDay[day] += safe(d.getElec());
+                elecDay[day] += safe(d.getElec()) * ELEC_KWH;
                 gasDay[day]  += safe(d.getGas());
             }
         }
@@ -125,7 +128,6 @@ public class DashboardService {
                 .build();
     }
 
-
     // 절약 목표
     public GoalResponse getSavingGoal(Long userId, String periodYm) {
         SavingGoal goal = savingGoalRepository
@@ -152,15 +154,20 @@ public class DashboardService {
                 .build();
     }
 
+
     private int getMonthTotal(Long userId, String ymStr) {
         List<MonthlyCharge> dailies =
                 monthlyChargeRepository.findAllByUser_IdAndYmAndDayIsNotNullOrderByDay(userId, ymStr);
+
         int sum = 0;
-        for (MonthlyCharge d : dailies) sum += safe(d.getElec()) + safe(d.getGas());
+        for (MonthlyCharge d : dailies) {
+            sum += safe(d.getElec()) * ELEC_KWH;
+            sum += safe(d.getGas());
+        }
         if (sum > 0) return sum;
 
         return monthlyChargeRepository.findByUser_IdAndYmAndDayIsNull(userId, ymStr)
-                .map(MonthlyCharge::getTotal)
+                .map(m -> safe(m.getElec()) * ELEC_KWH + safe(m.getGas()))
                 .orElse(0);
     }
 
