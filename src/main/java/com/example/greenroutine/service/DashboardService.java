@@ -26,6 +26,8 @@ public class DashboardService {
 
     // 전기요금 수정(원/kWh)
     private static final int ELEC_KWH = 106;
+    //도시가스 요금 수정 (원/㎥)
+    private static final int GAS_M3 = 960;
 
     // 도넛 데이터
     public DonutResponse getDonut(Long userId, String periodYm) {
@@ -35,7 +37,7 @@ public class DashboardService {
         int elecSum = 0, gasSum = 0;
         for (MonthlyCharge d : dailies) {
             elecSum += safe(d.getElec())* ELEC_KWH;
-            gasSum  += safe(d.getGas());
+            gasSum  += safe(d.getGas())* GAS_M3;;
         }
 
         if (dailies.isEmpty()) {
@@ -43,7 +45,7 @@ public class DashboardService {
             if (monthly.isPresent()) {
                 MonthlyCharge m = monthly.get();
                 elecSum = safe(m.getElec()) * ELEC_KWH;;
-                gasSum  = safe(m.getGas());
+                gasSum  = safe(m.getGas())* GAS_M3;;
             }
         }
 
@@ -76,7 +78,7 @@ public class DashboardService {
             Integer day = d.getDay();
             if (day != null && day >= 1 && day <= daysInMonth) {
                 elecDay[day] += safe(d.getElec()) * ELEC_KWH;
-                gasDay[day]  += safe(d.getGas());
+                gasDay[day]  += safe(d.getGas())* GAS_M3;;
             }
         }
 
@@ -154,7 +156,6 @@ public class DashboardService {
                 .build();
     }
 
-
     private int getMonthTotal(Long userId, String ymStr) {
         List<MonthlyCharge> dailies =
                 monthlyChargeRepository.findAllByUser_IdAndYmAndDayIsNotNullOrderByDay(userId, ymStr);
@@ -162,12 +163,12 @@ public class DashboardService {
         int sum = 0;
         for (MonthlyCharge d : dailies) {
             sum += safe(d.getElec()) * ELEC_KWH;
-            sum += safe(d.getGas());
+            sum += safe(d.getGas()) * GAS_M3;
         }
         if (sum > 0) return sum;
 
         return monthlyChargeRepository.findByUser_IdAndYmAndDayIsNull(userId, ymStr)
-                .map(m -> safe(m.getElec()) * ELEC_KWH + safe(m.getGas()))
+                .map(m -> safe(m.getElec()) * ELEC_KWH + safe(m.getGas()) * GAS_M3)
                 .orElse(0);
     }
 
