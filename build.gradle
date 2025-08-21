@@ -34,6 +34,9 @@ dependencies {
 
 	// Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'   // WebClient 제공
+	// (선택) Netty 핸들러 필요할 때만
+	// implementation 'io.netty:netty-handler'
 }
 
 tasks.withType(Test).configureEach {
